@@ -10,17 +10,18 @@ const Headers = {
 const apiClient:AxiosInstance=axios.create({baseURL:baseURL,headers:Headers})
 
 const authentication = async <Type>(params: AuthapiRequestParams<Type>) => {
-    const {body, endPoint}=params
+  const {body, endPoint}=params
   const encryptedBody = {encrypted: encrypt(body,authenticationSecretKey)};
   try{
+    console.log(endPoint,encryptedBody,'params')
   const response = await apiClient.post(
     `auth/${endPoint}`,
     encryptedBody,
-  );
+  )
   console.log(response)
   }
   catch(err){
-    console.log(err)
+    console.log(err,'////')
   }
 };
 

@@ -2,3 +2,4 @@
 /* eslint-disable eol-last */
 export {default as UnAuthenticatedTabs} from './unauth_tabs';
 export {default as Login}    from './login';
+export {default as Forgot}    from './forgot';

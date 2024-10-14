@@ -8,6 +8,7 @@ import {
   Keyboard,
   StyleSheet,
   Text,
+  TouchableOpacity,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
@@ -38,14 +39,15 @@ const Login = ({navigation}) => {
   const [userData, setUserData] = useState();
   const [isPasswordShow, setPasswordVisibility] = useState<boolean>(false);
   const [isLoading, setLoader] = useState<boolean>(false);
-  // setPasswordVisibility(!isPasswordShow)
   const handleSubmit = (values: loginData) => {
     setLoader(!isLoading);
+    
   console.log(values,'/////')
     let reqParams:AuthapiRequestParams<loginData>={
       endPoint:'login',
       body:values,
     }
+    console.log(reqParams)
     authentication(reqParams)
 
   };
@@ -100,7 +102,7 @@ const Login = ({navigation}) => {
             handleBlur,
             values,
             errors,
-            isValid,
+            isValid = false,
           }) => (
             <View style={loginStyles.formContainer}>
               <Input
@@ -140,7 +142,11 @@ const Login = ({navigation}) => {
                 <Text style={loginStyles.errorText}>{errors.password}</Text>
               )}
               <View>
-                <Text>Forgot Password ?</Text>
+                <TouchableOpacity onPress={()=>{
+                  navigation.navigate('forgot')
+                }}>
+                  <Text style={loginStyles.forgotText}>Forgot Password ?</Text>
+                </TouchableOpacity>
               </View>
               <View>
                 <AppButton
@@ -149,7 +155,7 @@ const Login = ({navigation}) => {
                   rippleColor={Colors.blue1}
                   buttonColor={Colors.bgButtonColor}
                   loading={isLoading}
-                  disabled={!isValid}
+                  disabled={isLoading?isLoading:!isValid}
                   icon={'login'}
                   handleIconPress={handleSubmit}></AppButton>
               </View>
@@ -196,4 +202,9 @@ const loginStyles = StyleSheet.create({
     color: Colors.status_critical,
     fontSize: 15,
   },
+  forgotText:{
+    color:Colors.blue1,
+    fontSize:15,
+    textAlign:"right"
+  }
 });

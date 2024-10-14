@@ -1,4 +1,4 @@
-import CryptoJS from 'crypto-js';
+import CryptoJS from 'react-native-crypto-js';
 const  encrypt = (value: any, key: string) => {
   try {
     const encrypted = CryptoJS.AES.encrypt(
@@ -7,7 +7,9 @@ const  encrypt = (value: any, key: string) => {
     ).toString();
     return encrypted;
   } catch (err) {
+     console.log(err, 'crypto');
     return null;
+   
   }
 };
 const decrypt = (text: any, key: string) => {
